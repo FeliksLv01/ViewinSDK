@@ -17,7 +17,7 @@ examples/ios/          # 真实 UIKit / SwiftUI 宿主 Demo
 
 ## iOS 接入
 
-SwiftPM 添加 `https://github.com/FeliksLv01/ViewinSDK`，选择 `ViewinSDK` 产品。当前尚未发布版本标签，可暂时选择 `main` 分支，或使用本地路径。
+SwiftPM 添加 `https://github.com/FeliksLv01/ViewinSDK`，选择 `ViewinSDK` 产品。可选择已发布的 `0.1.0` 标签，或使用本地路径开发。
 
 ```swift
 import ViewinSDK
@@ -37,7 +37,7 @@ try Viewin.start() // 127.0.0.1:48721，自动探测能力
 - [Schema](protocol/schema/snapshot.schema.json)
 - [规范样例](protocol/fixtures/)
 
-Android DTO 的检查入口位于 `android/`；Gradle 测试直接读取本仓库 protocol/fixtures。源码仓库为 [FeliksLv01/ViewinSDK](https://github.com/FeliksLv01/ViewinSDK)。Android Maven 接入见下方，SwiftPM 尚未发布版本标签。
+Android DTO 的检查入口位于 `android/`；Gradle 测试直接读取本仓库 protocol/fixtures。源码仓库为 [FeliksLv01/ViewinSDK](https://github.com/FeliksLv01/ViewinSDK)。Android Maven 接入见下方，SwiftPM 已有 `0.1.0` 标签。
 
 当前版本的初始化 API 为 `Viewin.start()`，wire 服务标识为 `app.viewin.inspection`；请同步使用改名后的桌面客户端与 SDK。历史快照兼容由桌面客户端负责。
 
@@ -101,3 +101,7 @@ dependencies {
 然后在 `Application.onCreate`、首次 `setContent` 前调用 `Viewin.start`，完整说明见 [Android 接入](android/README.md)。
 
 宿主需要 compileSdk 36、Java 17 字节码支持，以及能读取 Kotlin 2.2.20 元数据的编译器。兼容验证覆盖 AGP 8.13.0 / 9.1.1、View / Compose、Debug / 开启 R8 的 Release；更旧工具链尚未验证。Compose 当前依赖 UI / tooling-data 1.10.6，可能升级宿主较旧的 Compose 依赖。
+
+## 版本发布
+
+[GitHub Releases](https://github.com/FeliksLv01/ViewinSDK/releases) 提供版本说明和 SDK 制品备份。Android `0.1.0` 的现有 GitHub Maven 地址继续可用。Maven Central 正在为 `0.1.1` 配置发布流程，**尚未发布成功，暂时不要改为仅使用 `mavenCentral()`**。维护者配置和发布步骤见 [CONTRIBUTING.md](CONTRIBUTING.md)。

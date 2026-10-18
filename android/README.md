@@ -64,3 +64,7 @@ Android Studio 的 Gradle JDK 选择内置 JDK；终端的 `JAVA_HOME` 指向同
 运行 `./gradlew :demo:assembleDebug :demo:assembleRelease :viewin-protocol:test`。使用 Android Studio 自带 JDK / Android SDK 36。构建固定 Gradle 9.3.1 + AGP 9.1.1，兼容当前内置 JDK 25；字节码目标为 Java 17，不要求另装 Java 17。Release Demo 启用 R8 并使用开发签名，仅用于内部验证，不能作为正式发布包。
 
 参考 CodeLocator 的 View 遍历、结构化字段及分层绘制思路，独立实现 Viewin 协议和 SDK，无 CodeLocator 运行依赖或源码拷贝。
+
+## 发布渠道
+
+当前可下载版本仍为 GitHub Maven 的 `0.1.0`。`0.1.1` 准备迁移到 Maven Central，尚未上线；成功发布并验证后，才能仅使用 `mavenCentral()`。GitHub Release 保存版本说明和完整 Maven 仓库 ZIP 作为备份，单独 AAR 不负责解析传递依赖。发布账号、PGP 签名及工作流配置见 [维护指南](../CONTRIBUTING.md)。

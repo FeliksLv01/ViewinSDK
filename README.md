@@ -4,7 +4,7 @@ English · [简体中文](README.zh-CN.md)
 
 Read-only UI capture for **UIKit, SwiftUI, Android View / XML, and Jetpack Compose**. Use it with the [Viewin](https://github.com/FeliksLv01/Viewin) macOS inspector and its bundled CLI to inspect your own apps, or capture snapshots for AI agents without opening the desktop app.
 
-> Early development. Android Maven artifacts are hosted in this public GitHub repository; SwiftPM version tags have not been published yet. The desktop repository may require access while its public release is being prepared.
+> Early development. Android Maven artifacts are hosted in this public GitHub repository; SwiftPM can use the `0.1.0` tag. The desktop repository may require access while its public release is being prepared.
 
 ## Capabilities
 
@@ -19,7 +19,7 @@ All inspection is read-only. Capturing does not invoke actions or modify propert
 
 ## iOS
 
-Requires **iOS 15+**. In Xcode, add `https://github.com/FeliksLv01/ViewinSDK` as a Swift package and select the **ViewinSDK** product. Until version tags are published, use the `main` branch or a local checkout.
+Requires **iOS 15+**. In Xcode, add `https://github.com/FeliksLv01/ViewinSDK` as a Swift package and select the **ViewinSDK** product. Select version `0.1.0` or use a local checkout for development.
 
 Start before creating the first SwiftUI host when inspecting SwiftUI:
 
@@ -113,23 +113,11 @@ For desktop development, place this checkout in a directory named `ViewinSDK` be
 
 The wire service identifier is `app.viewin.inspection`. Use matching desktop and SDK versions. Historical snapshot compatibility is handled by the desktop app.
 
-## Development
+## Releases
 
-Open `examples/ios/ViewinDemo.xcodeproj` and run the `ViewinDemo` scheme. Its `ViewinSDKTests` target covers UIKit events, SwiftUI decoding, runtime capture, and rendering associations. Regenerate with XcodeGen if changing `project.yml`; pipe `xcodebuild` output through `xcbeautify`.
+[GitHub Releases](https://github.com/FeliksLv01/ViewinSDK/releases) contains version notes and SDK artifact backups. SwiftPM can use the `0.1.0` tag. Android `0.1.0` remains available from the public GitHub Maven repository described above.
 
-For Android, use Android Studio’s bundled JDK and Android SDK 36. The project uses Gradle 9.3.1 and AGP 9.1.1 with Java 17 bytecode. Do not download or store a JDK in the repository. From `android/`, run:
-
-```sh
-./gradlew :viewin-protocol:test :demo:assembleDebug :demo:assembleRelease
-```
-
-The Release demo uses a development signature for internal validation. iOS framework / XCFramework distribution artifacts must use Git LFS; local build outputs, developer settings, and research notes are excluded from Git.
-
-## Android Maven maintenance
-
-The shared Android version is `viewinVersion` in `android/gradle.properties`. Run `android/gradlew -p android stageMaven` to stage all three modules, then `python3 scripts/publish-maven.py` to validate checksums and transitive dependencies without uploading.
-
-The **Android Maven compatibility** workflow checks independent consumers against AGP 8 and 9. To publish, run it manually with `publish` enabled. Publication waits for both checks and pushes to the `maven` branch. Existing version directories cannot be overwritten; increment the version for a new release. `python3 scripts/publish-maven.py --push` provides the equivalent local upload after validation and a clean source commit. Source revisions and SHA-256 manifests are recorded under `versions/` on that branch. No Maven consumer credentials are required.
+Maven Central publishing is being prepared for `0.1.1`. **It has not been published to Central yet.** Keep the existing repository configuration until Central downloads are verified. Publisher setup and release automation are documented in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## References
 

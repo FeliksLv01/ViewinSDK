@@ -39,3 +39,22 @@ class MavenArtifactsTests(unittest.TestCase):
         self.artifact("viewin-sdk", "-sources.jar").unlink()
         with self.assertRaisesRegex(ValueError, "Missing artifact"):
             maven.validate(self.staging, self.release)
+
+    def test_unsigned_release_cannot_pass_signature_gate(self):
+        with self.assertRaisesRegex(ValueError, "Missing PGP signature"):
+            maven.validate(self.staging, self.release, require_signatures=True)
+
+    def test_release_archive_has_dependency_metadata_and_provenance(self):
+        import zipfile
+        import json
+        output = Path(self.temporary.name) / "release.zip"
+        maven.archive(self.staging, self.release, output)
+        with zipfile.ZipFile(output) as bundle:
+            manifest = json.loads(bundle.read("release.json"))
+            self.assertEqual(manifest["version"], self.release)
+            self.assertIn("LICENSE", bundle.namelist())
+            for module in maven.MODULES:
+                self.assertIn(f"{maven.GROUP.replace('.', '/')}/{module}/{self.release}/{module}-{self.release}.pom", bundle.namelist())
+        self.assertTrue(output.with_suffix(".zip.sha256").is_file())
+        with self.assertRaises(FileExistsError):
+            maven.archive(self.staging, self.release, output)

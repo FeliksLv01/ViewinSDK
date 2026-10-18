@@ -39,16 +39,20 @@ def checksums(path):
             hashlib.new(algorithm, path.read_bytes()).hexdigest())
 
 
-def validate(staging, release):
+def validate(staging, release, require_signatures=False):
     group_path = staging / GROUP.replace(".", "/")
     for module in MODULES:
         directory = group_path / module / release
         stem = f"{module}-{release}"
         extension = "jar" if module == "viewin-protocol" else "aar"
-        for suffix in (f".{extension}", "-sources.jar", ".pom", ".module"):
+        for suffix in (f".{extension}", "-sources.jar", "-javadoc.jar", ".pom", ".module"):
             path = directory / (stem + suffix)
             if not path.is_file() or not path.stat().st_size:
                 raise ValueError(f"Missing artifact: {path}")
+            if require_signatures:
+                signature = path.with_name(path.name + ".asc")
+                if not signature.is_file() or "-----BEGIN PGP SIGNATURE-----" not in signature.read_text():
+                    raise ValueError(f"Missing PGP signature: {path}")
             for algorithm in ("md5", "sha1", "sha256", "sha512"):
                 expected = hashlib.new(algorithm, path.read_bytes()).hexdigest()
                 if path.with_name(path.name + "." + algorithm).read_text().strip() != expected:
@@ -61,6 +65,9 @@ def validate(staging, release):
                 notice = archive.read("META-INF/LICENSE-" + module)
             if notice != (ROOT / "LICENSE").read_bytes():
                 raise ValueError(f"Missing or incorrect license notice for {module}")
+        with zipfile.ZipFile(directory / (stem + "-javadoc.jar")) as documentation:
+            if "index.html" not in documentation.namelist():
+                raise ValueError(f"Missing generated API documentation for {module}")
         pom = ET.parse(directory / (stem + ".pom")).getroot()
         for key, expected in (("groupId", GROUP), ("artifactId", module), ("version", release)):
             if pom.findtext("m:" + key, namespaces=NS) != expected:
@@ -140,14 +147,39 @@ def publish(staging, release):
         print(f"Published {release}: https://raw.githubusercontent.com/FeliksLv01/ViewinSDK/maven")
 
 
+
+def archive(staging, release, output, require_signatures=False):
+    validate(staging, release, require_signatures)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    paths = []
+    for module in MODULES:
+        folder = staging / GROUP.replace(".", "/") / module
+        paths.extend(p for p in (folder / release).iterdir() if p.is_file())
+        paths.extend(p for p in folder.glob("maven-metadata.xml*") if p.is_file())
+    hashes = {str(p.relative_to(staging)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
+    manifest = {"version": release, "sourceCommit": git("rev-parse", "HEAD"), "sha256": hashes}
+    with zipfile.ZipFile(output, "x", compression=zipfile.ZIP_DEFLATED) as bundle:
+        for path in sorted(paths):
+            bundle.write(path, str(path.relative_to(staging)))
+        bundle.write(ROOT / "LICENSE", "LICENSE")
+        bundle.writestr("release.json", json.dumps(manifest, indent=2) + "\n")
+    output.with_suffix(output.suffix + ".sha256").write_text(
+        hashlib.sha256(output.read_bytes()).hexdigest() + "  " + output.name + "\n")
+    print(f"Created {output}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--push", action="store_true", help="Push validated artifacts to the public maven branch")
+    parser.add_argument("--archive", type=Path, help="Create a Maven repository ZIP for GitHub Releases")
+    parser.add_argument("--require-signatures", action="store_true", help="Require PGP signature files for Central release artifacts")
     args = parser.parse_args()
     release = version()
     staging = ROOT / "android/build/maven"
-    validate(staging, release)
+    validate(staging, release, args.require_signatures)
     print(f"Validated all three modules for {release}")
+    if args.archive:
+        archive(staging, release, args.archive, args.require_signatures)
     if args.push:
         publish(staging, release)
 

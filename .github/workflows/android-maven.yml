@@ -1,15 +1,11 @@
 name: Android Maven compatibility
 
 on:
+  workflow_call:
   push:
     branches: [main]
-    paths: ['android/**', 'scripts/publish-maven.py', 'scripts/tests/**', '.github/workflows/android-maven.yml']
+    paths: ['android/**', 'scripts/publish-maven.py', 'scripts/tests/**', '.github/workflows/android-maven.yml', '.github/workflows/central-release.yml']
   workflow_dispatch:
-    inputs:
-      publish:
-        description: Publish the configured version after both compatibility checks pass
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -54,24 +50,3 @@ jobs:
           name: android-maven
           path: android/build/maven/
           if-no-files-found: error
-
-  publish:
-    if: github.event_name == 'workflow_dispatch' && inputs.publish
-    needs: compatibility
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: android-maven-publish
-      cancel-in-progress: false
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: android-maven
-          path: android/build/maven/
-      - name: Publish immutable Maven artifacts
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          python3 scripts/publish-maven.py --push

@@ -32,5 +32,5 @@ tasks.withType<KotlinJvmCompile>().configureEach {
     compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
 }
 dependencies {
-    implementation("io.github.felikslv01.viewin:viewin-sdk:${providers.gradleProperty("viewinVersion").getOrElse("0.1.0")}")
+    implementation("io.github.felikslv01.viewin:viewin-sdk:${providers.gradleProperty("viewinVersion").getOrElse(rootProject.extra["sdkVersion"].toString())}")
 }

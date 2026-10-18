@@ -32,7 +32,7 @@ tasks.withType<KotlinJvmCompile>().configureEach {
     compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
 }
 dependencies {
-    implementation("io.github.felikslv01.viewin:viewin-compose:${providers.gradleProperty("viewinVersion").getOrElse("0.1.0")}")
+    implementation("io.github.felikslv01.viewin:viewin-compose:${providers.gradleProperty("viewinVersion").getOrElse(rootProject.extra["sdkVersion"].toString())}")
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation("androidx.compose.foundation:foundation:1.10.6")
 }

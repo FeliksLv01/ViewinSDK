@@ -1,7 +1,13 @@
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import com.vanniktech.maven.publish.DeploymentValidation
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
+
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.PublishingExtension
 
 plugins {
+    id("com.vanniktech.maven.publish.base") version "0.37.0" apply false
+    id("org.jetbrains.dokka") version "2.2.0" apply false
     kotlin("plugin.compose") version "2.2.20" apply false
     kotlin("jvm") version "2.2.20" apply false
     kotlin("plugin.serialization") version "2.2.20" apply false
@@ -14,7 +20,35 @@ subprojects {
     if (name in libraryModules) {
         group = "io.github.felikslv01.viewin"
         version = providers.gradleProperty("viewinVersion").get()
-        apply(plugin = "maven-publish")
+        apply(plugin = "com.vanniktech.maven.publish.base")
+        apply(plugin = "org.jetbrains.dokka")
+        val signingEnabled = providers.gradleProperty("signPublications").orElse("false").get().toBoolean()
+        extensions.configure<MavenPublishBaseExtension> {
+            coordinates(project.group.toString(), project.name, project.version.toString())
+            publishToMavenCentral(automaticRelease = false, validateDeployment = DeploymentValidation.PUBLISHED)
+            if (signingEnabled) signAllPublications()
+        }
+        val validateCentralCredentials = tasks.register("validateCentralCredentials") {
+            doLast {
+                check(signingEnabled) { "Central publishing requires -PsignPublications=true" }
+                for (key in listOf("mavenCentralUsername", "mavenCentralPassword", "signingInMemoryKey")) {
+                    check(providers.gradleProperty(key).orNull?.isNotBlank() == true) {
+                        "Missing $key; configure it outside the repository"
+                    }
+                }
+            }
+        }
+        tasks.matching { it.name == "prepareMavenCentralPublishing" }.configureEach {
+            dependsOn(validateCentralCredentials)
+        }
+        tasks.withType<PublishToMavenRepository>().configureEach {
+            if (name.endsWith("ToMavenCentralRepository")) dependsOn(validateCentralCredentials)
+        }
+        val javadocJar = tasks.register<Jar>("javadocJar") {
+            archiveClassifier.set("javadoc")
+            dependsOn("dokkaGeneratePublicationHtml")
+            from(layout.buildDirectory.dir("dokka/html"))
+        }
         tasks.withType<Jar>().configureEach {
             from(rootProject.file("../LICENSE")) {
                 into("META-INF")
@@ -29,6 +63,7 @@ subprojects {
                     create<MavenPublication>("release") {
                         from(libraryProject.components[if (libraryProject.name == "viewin-protocol") "java" else "release"])
                         artifactId = libraryProject.name
+                        artifact(javadocJar)
                         pom {
                             name.set(libraryProject.name)
                             description.set("Read-only mobile UI capture for Viewin")
@@ -58,7 +93,9 @@ subprojects {
                 repositories {
                     maven {
                         name = "Staging"
-                        url = rootProject.layout.buildDirectory.dir("maven").get().asFile.toURI()
+                        url = rootProject.providers.gradleProperty("viewinStagingDirectory")
+                            .map { rootProject.file(it).toURI() }
+                            .orElse(rootProject.layout.buildDirectory.dir("maven").map { it.asFile.toURI() }).get()
                     }
                 }
             }

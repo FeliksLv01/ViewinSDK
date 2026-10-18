@@ -1,0 +1,78 @@
+name: Maven Central release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: maven-central-release
+  cancel-in-progress: false
+
+jobs:
+  compatibility:
+    uses: ./.github/workflows/android-maven.yml
+
+  publish:
+    needs: compatibility
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check publishing configuration
+        env:
+          CENTRAL_USER: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.MAVEN_SIGNING_KEY }}
+        run: |
+          VERSION=$(sed -n 's/^viewinVersion=//p' android/gradle.properties)
+          test -s "changelog/${VERSION}.md"
+          python3 - <<'PY'
+          import os
+          names = ['CENTRAL_USER', 'CENTRAL_PASSWORD', 'SIGNING_KEY']
+          missing = [name for name in names if not os.environ.get(name)]
+          if missing:
+              raise SystemExit('Missing publishing secrets: ' + ', '.join(missing))
+          PY
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+      - uses: android-actions/setup-android@v4
+      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Sign and publish all three modules to Maven Central
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_PASSWORD }}
+        run: android/gradlew -p android -PsignPublications=true stageMaven publishAndReleaseToMavenCentral
+      - name: Back up signed Maven artifacts
+        run: |
+          VERSION=$(sed -n 's/^viewinVersion=//p' android/gradle.properties)
+          python3 scripts/publish-maven.py --require-signatures --archive "android/build/distributions/ViewinSDK-${VERSION}-android-maven.zip"
+      - name: Verify Maven Central availability
+        run: |
+          VERSION=$(sed -n 's/^viewinVersion=//p' android/gradle.properties)
+          for MODULE in viewin-protocol viewin-sdk viewin-compose; do
+            curl --fail --silent --show-error --retry 20 --retry-all-errors --retry-delay 30 \
+              "https://repo.maven.apache.org/maven2/io/github/felikslv01/viewin/${MODULE}/${VERSION}/${MODULE}-${VERSION}.pom" -o /dev/null
+          done
+      - name: Create GitHub Release with artifacts and notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(sed -n 's/^viewinVersion=//p' android/gradle.properties)
+          test -s "changelog/${VERSION}.md"
+          gh release create "v${VERSION}" --target "$GITHUB_SHA" --title "ViewinSDK ${VERSION}" \
+            --notes-file "changelog/${VERSION}.md" \
+            "android/build/distributions/ViewinSDK-${VERSION}-android-maven.zip" \
+            "android/build/distributions/ViewinSDK-${VERSION}-android-maven.zip.sha256" \
+            "android/build/maven/io/github/felikslv01/viewin/viewin-sdk/${VERSION}/viewin-sdk-${VERSION}.aar" \
+            "android/build/maven/io/github/felikslv01/viewin/viewin-compose/${VERSION}/viewin-compose-${VERSION}.aar" \
+            "android/build/maven/io/github/felikslv01/viewin/viewin-protocol/${VERSION}/viewin-protocol-${VERSION}.jar"
