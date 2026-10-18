@@ -9,3 +9,6 @@
 # Local implementation and research notes
 /docs/
 **/local.properties
+**/.kotlin/
+__pycache__/
+*.pyc

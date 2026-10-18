@@ -1,0 +1,76 @@
+name: Android Maven compatibility
+
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', 'scripts/publish-maven.py', 'scripts/tests/**', '.github/workflows/android-maven.yml']
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the configured version after both compatibility checks pass
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - agp: '8.13.0'
+            gradle: '8.14.3'
+          - agp: '9.1.1'
+            gradle: '9.3.1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ matrix.gradle }}
+      - name: Install Android build tools
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Stage Maven artifacts and test the protocol
+        run: android/gradlew -p android stageMaven :viewin-protocol:test
+      - name: Validate checksums and dependency metadata
+        run: |
+          python3 scripts/publish-maven.py
+          python3 -m unittest discover -s scripts/tests -v
+      - name: Build independent View and Compose consumers
+        run: >-
+          gradle -p android/integration-tests -PconsumerAgp=${{ matrix.agp }}
+          :view-app:assembleDebug :view-app:assembleRelease
+          :compose-app:assembleDebug :compose-app:assembleRelease
+      - uses: actions/upload-artifact@v4
+        if: matrix.agp == '9.1.1'
+        with:
+          name: android-maven
+          path: android/build/maven/
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish
+    needs: compatibility
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: android-maven-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: android-maven
+          path: android/build/maven/
+      - name: Publish immutable Maven artifacts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python3 scripts/publish-maven.py --push
