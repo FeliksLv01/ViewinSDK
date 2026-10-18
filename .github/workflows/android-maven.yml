@@ -34,6 +34,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: ${{ matrix.gradle }}
+      - uses: android-actions/setup-android@v4
       - name: Install Android build tools
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Stage Maven artifacts and test the protocol
