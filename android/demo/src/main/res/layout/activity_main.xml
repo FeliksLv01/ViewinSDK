@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+    android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingTop="40dp" android:paddingBottom="24dp" android:background="#F2F2F7">
+    <TextView android:id="@+id/title" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Viewin Android Demo" android:textSize="26sp" android:textStyle="bold" android:textColor="#171717" />
+    <TextView android:id="@+id/subtitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:text="RecyclerView · 100 items · ConcatAdapter" android:textSize="14sp" android:textColor="#666666" />
+    <LinearLayout android:id="@+id/profile_card" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" android:orientation="horizontal" android:padding="12dp" android:background="#FFFFFF" android:elevation="3dp">
+        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_menu_myplaces" android:contentDescription="Profile" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp"
+            android:text="Alex Morgan" android:textSize="20sp" android:textColor="#007AFF" />
+    </LinearLayout>
+    <Button android:id="@+id/action_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Update profile" />
+    <Button android:id="@+id/dialog_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Show dialog" />
+    <Switch android:id="@+id/toggle" android:layout_width="match_parent" android:layout_height="40dp" android:text="Stable IDs" android:checked="true" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <Button android:id="@+id/grid_button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp" android:text="Grid" />
+        <Button android:id="@+id/remove_button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp" android:text="Remove first" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rows" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:background="#FFFFFF" />
+</LinearLayout>

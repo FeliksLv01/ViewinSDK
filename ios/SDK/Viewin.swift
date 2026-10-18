@@ -5,11 +5,18 @@
   import ViewinTransport
 
   /// Explicit opt-in SDK, usable in Debug and internal Release builds. No automatic injection.
+  public enum ViewinBuildType: String, Sendable {
+    case debug
+    case internalRelease
+    case unknown
+  }
+
   @MainActor public enum Viewin {
     private static var server: InspectionServer?
-    public static func start(port: UInt16 = 48721) throws {
+    public static func start(port: UInt16 = 48721, buildType: ViewinBuildType = .unknown) throws {
       guard server == nil else { return }
-      let instance = try InspectionServer(port: port)
+      SwiftUIRuntime.prepare()
+      let instance = try InspectionServer(port: port, buildType: buildType)
       server = instance
       instance.start()
     }
@@ -21,10 +28,11 @@
 
   @MainActor private final class InspectionServer {
     private let listener: NWListener
-    private let collector = UIKitCollector()
+    private let collector: UIKitCollector
     private var isCapturing = false
     private var clients: [UUID: (FramedConnection, Task<Void, Never>)] = [:]
-    init(port: UInt16) throws {
+    init(port: UInt16, buildType: ViewinBuildType) throws {
+      collector = UIKitCollector(buildType: buildType)
       let parameters = NWParameters.tcp
       parameters.requiredLocalEndpoint = .hostPort(
         host: "127.0.0.1", port: NWEndpoint.Port(rawValue: port)!)

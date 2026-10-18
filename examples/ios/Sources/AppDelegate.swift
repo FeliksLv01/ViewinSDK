@@ -9,7 +9,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
-            try Viewin.start()
+            #if DEBUG
+            try Viewin.start(buildType: .debug)
+            #else
+            try Viewin.start(buildType: .internalRelease)
+            #endif
         } catch {
             logger.error("Failed to start Viewin: \(error.localizedDescription, privacy: .public)")
         }
@@ -80,12 +84,7 @@ final class DemoViewController: UIViewController, UITableViewDataSource, UIGestu
         actionButton.setTitle("Edit profile", for: .normal)
         actionButton.accessibilityIdentifier = "demo.edit"
         actionButton.addTarget(self, action: #selector(tappedCard), for: .touchUpInside)
-        let host = UIHostingController(rootView: VStack(alignment: .leading, spacing: 8) {
-            Label("SwiftUI inside UIKit", systemImage: "square.stack.3d.up")
-                .font(.headline)
-            Text("The first collector shows the hosting view. SwiftUI logical inspection comes later.")
-                .font(.caption).foregroundStyle(.secondary)
-        }.padding().frame(maxWidth: .infinity, alignment: .leading).background(Color.blue.opacity(0.08)).clipShape(RoundedRectangle(cornerRadius: 14)))
+        let host = UIHostingController(rootView: SwiftUIDemoCard())
         addChild(host)
         let stack = UIStackView(arrangedSubviews: [titleLabel, subtitle, cardView, actionButton, host.view])
         stack.axis = .vertical

@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0F97D65B90E2B10EFF834C62 /* UIKitEventHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E69A87F5234749D912854 /* UIKitEventHandlersTests.swift */; };
+		2A4D7A4F6431E15E7AB063A6 /* SwiftUIRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADF5FB7F0BD74E6899843C8 /* SwiftUIRuntimeTests.swift */; };
 		414FEDEF47CDFA70DE734D19 /* ViewinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 295A3E8C9B5FE0B8975FFB36 /* ViewinSDK */; };
 		74601054AB7EE153F22B0CC5 /* ViewinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 640D22630EBA073C1C940BC6 /* ViewinSDK */; };
 		80FB8AE864B46FFC6072136B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7926B1B4CDBC995712D202 /* AppDelegate.swift */; };
+		A355570C4231C1D8CAA89EC6 /* SwiftUIDebugDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC47061368B6B82BE135C9 /* SwiftUIDebugDecoderTests.swift */; };
+		E8A1033C442D7247F5B51DE6 /* SwiftUIDemoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711037EE54DEBA7996BE2A59 /* SwiftUIDemoCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,8 +29,11 @@
 /* Begin PBXFileReference section */
 		16F7B2AF27D421A86657E61B /* ViewinSDKTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ViewinSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7818751A394B07B47BCF1F /* ViewinDemo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ViewinDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ADF5FB7F0BD74E6899843C8 /* SwiftUIRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIRuntimeTests.swift; sourceTree = "<group>"; };
 		6D7926B1B4CDBC995712D202 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		711037EE54DEBA7996BE2A59 /* SwiftUIDemoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIDemoCard.swift; sourceTree = "<group>"; };
 		968E69A87F5234749D912854 /* UIKitEventHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitEventHandlersTests.swift; sourceTree = "<group>"; };
+		A4DC47061368B6B82BE135C9 /* SwiftUIDebugDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIDebugDecoderTests.swift; sourceTree = "<group>"; };
 		D790E1585A1CA2606F74A9E1 /* ViewinSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ViewinSDK; path = ../..; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -55,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				6D7926B1B4CDBC995712D202 /* AppDelegate.swift */,
+				711037EE54DEBA7996BE2A59 /* SwiftUIDemoCard.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -62,6 +69,8 @@
 		97C2562B0DCD7BE6B524485F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A4DC47061368B6B82BE135C9 /* SwiftUIDebugDecoderTests.swift */,
+				6ADF5FB7F0BD74E6899843C8 /* SwiftUIRuntimeTests.swift */,
 				968E69A87F5234749D912854 /* UIKitEventHandlersTests.swift */,
 			);
 			path = Tests;
@@ -176,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80FB8AE864B46FFC6072136B /* AppDelegate.swift in Sources */,
+				E8A1033C442D7247F5B51DE6 /* SwiftUIDemoCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +193,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A355570C4231C1D8CAA89EC6 /* SwiftUIDebugDecoderTests.swift in Sources */,
+				2A4D7A4F6431E15E7AB063A6 /* SwiftUIRuntimeTests.swift in Sources */,
 				0F97D65B90E2B10EFF834C62 /* UIKitEventHandlersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
