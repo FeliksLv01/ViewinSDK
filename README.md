@@ -99,3 +99,7 @@ The Release demo uses a development signature for internal validation. iOS frame
 ## References
 
 Interaction and capture approaches draw inspiration from [Lookin](https://github.com/QMUI/Lookin), [LookInside](https://github.com/LookInsideApp/LookInside), and [CodeLocator](https://github.com/bytedance/CodeLocator). ViewinSDK implements its own protocol and collectors without embedding these projects’ runtime code. SwiftUI private APIs and runtime layouts may change across OS releases.
+
+## License
+
+[MIT](LICENSE). Gradle wrapper files retain their upstream Apache-2.0 notices.

@@ -64,3 +64,7 @@ SwiftUI 快照输出可读视图树：合并 ModifiedContent、StaticIf、EmptyM
 当前逻辑树入口在已验证场景未返回 per-View Display List 属性，因此逻辑 View 到渲染项仅在内容类型与窗口几何唯一匹配时生成 `renderedByGeometry`，界面明确标为推断。匹配比较四角坐标，避免相同包围盒的旋转图层错配；同位置的父子链选择最深节点，同级重叠和多个渲染候选不关联。逻辑叶子节点使用匹配图层的真实纹理（明确标注 `geometryInference`），展开和收起使用同一真实叶子图片；其他节点保留标明来源的宿主合成裁切。被替换且无引用的裁切图片不再传输或保留。不会把推断结果标成精确的 Display List 绑定。实际能力见 `swiftui.layerBindings`、`swiftui.layerImages`、`swiftui.logicalLayerImages`；完整 Display List 重放尚未实现。私有缓存布局目前仅验证 iOS 27 模拟器，Debug 和普通 Release Demo 均可用，其他版本/结构回退并报告原因。
 
 SwiftUI 合成裁切仅保存为收起子树的 groupImage；展开时，逻辑容器和具有逻辑子节点的 Hosting View 不重复贴子树截图。成功关联的独立叶子 CALayer 图片可用于展开视图，其余节点保留边框。
+
+## 许可证
+
+[MIT](LICENSE)。Gradle Wrapper 文件保留上游 Apache-2.0 声明。
