@@ -37,7 +37,7 @@ try Viewin.start() // 127.0.0.1:48721，自动探测能力
 - [Schema](protocol/schema/snapshot.schema.json)
 - [规范样例](protocol/fixtures/)
 
-Android DTO 的检查入口位于 `android/`；Gradle 测试直接读取本仓库 protocol/fixtures。源码仓库为 [FeliksLv01/ViewinSDK](https://github.com/FeliksLv01/ViewinSDK)，尚未发布版本标签或 Maven 制品。
+Android DTO 的检查入口位于 `android/`；Gradle 测试直接读取本仓库 protocol/fixtures。源码仓库为 [FeliksLv01/ViewinSDK](https://github.com/FeliksLv01/ViewinSDK)。Android Maven 接入见下方，SwiftPM 尚未发布版本标签。
 
 当前版本的初始化 API 为 `Viewin.start()`，wire 服务标识为 `app.viewin.inspection`；请同步使用改名后的桌面客户端与 SDK。历史快照兼容由桌面客户端负责。
 
@@ -68,3 +68,36 @@ SwiftUI 合成裁切仅保存为收起子树的 groupImage；展开时，逻辑�
 ## 许可证
 
 [MIT](LICENSE)。Gradle Wrapper 文件保留上游 Apache-2.0 声明。
+
+## Android Maven 接入
+
+最低 API 29。先添加公开 Maven 仓库，再选择一条依赖；无需 GitHub 登录、Token 或导入 SDK 源码模块。此仓库不是 Maven Central。
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        exclusiveContent {
+            forRepository {
+                maven("https://raw.githubusercontent.com/FeliksLv01/ViewinSDK/maven")
+            }
+            filter { includeGroup("io.github.felikslv01.viewin") }
+        }
+    }
+}
+```
+
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    implementation("io.github.felikslv01.viewin:viewin-sdk:0.1.0")
+    // Compose 宿主改用这一项，已包含基础 SDK。
+    // implementation("io.github.felikslv01.viewin:viewin-compose:0.1.0")
+}
+```
+
+然后在 `Application.onCreate`、首次 `setContent` 前调用 `Viewin.start`，完整说明见 [Android 接入](android/README.md)。
+
+宿主需要 compileSdk 36、Java 17 字节码支持，以及能读取 Kotlin 2.2.20 元数据的编译器。兼容验证覆盖 AGP 8.13.0 / 9.1.1、View / Compose、Debug / 开启 R8 的 Release；更旧工具链尚未验证。Compose 当前依赖 UI / tooling-data 1.10.6，可能升级宿主较旧的 Compose 依赖。

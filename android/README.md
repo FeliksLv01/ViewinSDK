@@ -1,11 +1,38 @@
 # Viewin Android
 
-Android API 29+。当前没有发布 Maven 坐标；仓库内 Demo 直接依赖本地模块，其他宿主可将 viewin-sdk 和 viewin-protocol 作为本地 Gradle 模块接入。
+Android API 29+。Maven 制品托管于公开 GitHub 仓库的 `maven` 分支，提供标准 AAR / JAR、POM、Gradle 元数据、源码包和校验和，无需登录。它不是 Maven Central。
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        exclusiveContent {
+            forRepository {
+                maven("https://raw.githubusercontent.com/FeliksLv01/ViewinSDK/maven")
+            }
+            filter { includeGroup("io.github.felikslv01.viewin") }
+        }
+    }
+}
+```
+
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    implementation("io.github.felikslv01.viewin:viewin-sdk:0.1.0")
+    // Compose 宿主改用这一项，已包含基础 SDK。
+    // implementation("io.github.felikslv01.viewin:viewin-compose:0.1.0")
+}
+```
+
+宿主需要 compileSdk 36、Java 17 字节码支持和兼容 Kotlin 2.2.20 元数据的编译器。AGP 8.13.0 / 9.1.1 的独立宿主覆盖 View / Compose、Debug / 开启 R8 的 Release。Compose 当前依赖 1.10.6，可能升级宿主较旧的 Compose 依赖；其他版本尚未验证。仓库内 Demo 仍使用本地模块。
 
 在 Application.onCreate 中显式启动，Debug 和内部 Release 均可用：
 
 ```kotlin
-implementation(project(":viewin-sdk"))
+import app.viewin.sdk.Viewin
 
 Viewin.start(this, buildType = if (BuildConfig.DEBUG)
     Viewin.BuildType.DEBUG else Viewin.BuildType.INTERNAL_RELEASE)

@@ -4,7 +4,7 @@ English · [简体中文](README.zh-CN.md)
 
 Read-only UI capture for **UIKit, SwiftUI, Android View / XML, and Jetpack Compose**. Use it with the [Viewin](https://github.com/FeliksLv01/Viewin) macOS inspector and its bundled CLI to inspect your own apps, or capture snapshots for AI agents without opening the desktop app.
 
-> Early development. Source integration is available; version tags and Maven artifacts have not been published yet. The desktop repository may require access while its public release is being prepared.
+> Early development. Android Maven artifacts are hosted in this public GitHub repository; SwiftPM version tags have not been published yet. The desktop repository may require access while its public release is being prepared.
 
 ## Capabilities
 
@@ -36,7 +36,34 @@ SwiftUI capture attempts actual runtime reads regardless of that declaration. Un
 
 ## Android
 
-Requires **API 29+**. Maven distribution is not available yet. Integrate the local Gradle modules or open `android/` in Android Studio. Use `viewin-sdk` for View apps, or the optional `viewin-compose` module, which includes the base SDK, for Compose apps.
+Requires **API 29+**. Add the public Maven repository once, then choose one dependency. No GitHub login, token, source checkout, or SDK build plugins are needed. The repository serves standard AAR / JAR, POM, Gradle metadata, and source artifacts; this is not Maven Central.
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        exclusiveContent {
+            forRepository {
+                maven("https://raw.githubusercontent.com/FeliksLv01/ViewinSDK/maven")
+            }
+            filter { includeGroup("io.github.felikslv01.viewin") }
+        }
+    }
+}
+```
+
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    implementation("io.github.felikslv01.viewin:viewin-sdk:0.1.0")
+    // Compose: use this instead; it includes the base SDK.
+    // implementation("io.github.felikslv01.viewin:viewin-compose:0.1.0")
+}
+```
+
+Use `viewin-sdk` for View apps, or `viewin-compose`, which includes the base SDK, for Compose apps.
 
 Start in `Application.onCreate`, before the first `setContent` call:
 
@@ -48,6 +75,8 @@ Viewin.start(
 )
 // Viewin.stop()
 ```
+
+Consumers require compileSdk 36, Java 17 bytecode support, and a Kotlin compiler compatible with Kotlin 2.2.20 metadata. Compatibility checks cover AGP 8.13.0 and 9.1.1, View and Compose, Debug and minified Release. Older toolchains have not been verified. Compose dependencies currently use UI / tooling-data 1.10.6 and may upgrade an older host’s Compose libraries.
 
 Compose Debug collection enables inspector data before compositions are created. Release builds fall back to semantics when composition data is unavailable. Actions remain read-only. See the [Android integration guide](android/README.md) for modules, RecyclerView metadata, explicit Dialog window registration, and rendering limits.
 
@@ -95,6 +124,12 @@ For Android, use Android Studio’s bundled JDK and Android SDK 36. The project 
 ```
 
 The Release demo uses a development signature for internal validation. iOS framework / XCFramework distribution artifacts must use Git LFS; local build outputs, developer settings, and research notes are excluded from Git.
+
+## Android Maven maintenance
+
+The shared Android version is `viewinVersion` in `android/gradle.properties`. Run `android/gradlew -p android stageMaven` to stage all three modules, then `python3 scripts/publish-maven.py` to validate checksums and transitive dependencies without uploading.
+
+The **Android Maven compatibility** workflow checks independent consumers against AGP 8 and 9. To publish, run it manually with `publish` enabled. Publication waits for both checks and pushes to the `maven` branch. Existing version directories cannot be overwritten; increment the version for a new release. `python3 scripts/publish-maven.py --push` provides the equivalent local upload after validation and a clean source commit. Source revisions and SHA-256 manifests are recorded under `versions/` on that branch. No Maven consumer credentials are required.
 
 ## References
 
