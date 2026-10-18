@@ -1,0 +1,116 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.felikslv01.viewin",
+    "module": "viewin-protocol",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.3.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "viewin-protocol-0.1.0.jar",
+          "url": "viewin-protocol-0.1.0.jar",
+          "size": 144885,
+          "sha512": "59fafa339fd79461c4511e18e4b89000dd3a63bef7c2869c1b283c21164f364be40ae16255f604ad6606624e5e71438125e5a92214d714118ebf64a0fb0b8404",
+          "sha256": "da50804fa9041cd7feeb3d3ef123540de50fb7cee7e3f038622f068b6e49e354",
+          "sha1": "92874f31d6536e1aab58a7b58c4b9e0938d71f41",
+          "md5": "f7c45dcdeec238519a04e9151bde4cf0"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "viewin-protocol-0.1.0.jar",
+          "url": "viewin-protocol-0.1.0.jar",
+          "size": 144885,
+          "sha512": "59fafa339fd79461c4511e18e4b89000dd3a63bef7c2869c1b283c21164f364be40ae16255f604ad6606624e5e71438125e5a92214d714118ebf64a0fb0b8404",
+          "sha256": "da50804fa9041cd7feeb3d3ef123540de50fb7cee7e3f038622f068b6e49e354",
+          "sha1": "92874f31d6536e1aab58a7b58c4b9e0938d71f41",
+          "md5": "f7c45dcdeec238519a04e9151bde4cf0"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "viewin-protocol-0.1.0-sources.jar",
+          "url": "viewin-protocol-0.1.0-sources.jar",
+          "size": 3438,
+          "sha512": "5e467f78698b08f3f23c2f74ebb0906a1238b80056de2708e8200a90b11262a56e44ae9887ace90360bc0c0c7a4060da062a5290f3c2b2d082dfa1aa843bc643",
+          "sha256": "5dfcaa11e77eaec887c92f6dfd03ad1b7aff7467308e6bd4af3972db6e6cd304",
+          "sha1": "775133ff6b938a6ce635c8d1c03faf86622de4b8",
+          "md5": "d2261054d604ccf3748c3a3f04fb4301"
+        }
+      ]
+    }
+  ]
+}

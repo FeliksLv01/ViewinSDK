@@ -1,0 +1,124 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.felikslv01.viewin",
+    "module": "viewin-compose",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.3.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.felikslv01.viewin",
+          "module": "viewin-sdk",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "viewin-compose-0.1.0.aar",
+          "url": "viewin-compose-0.1.0.aar",
+          "size": 31836,
+          "sha512": "c6145fb0936d6944d4e91159de47a9101c35fec8861005cc0a1c312811e7fc20fe453826dd8b290d1d81a096a32a5cb58aa30caa93cd91c147862dd5b4b7a6a2",
+          "sha256": "aed805235eb6a51243423b89d6daeda4ee86def51a0d90bfaf29d12fa282230f",
+          "sha1": "20b7e7d8d6e2200d79bfa2dc2ad2d17369ad9da3",
+          "md5": "20316acfb48edcc1e4be539a28e184fc"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui",
+          "version": {
+            "requires": "1.10.6"
+          }
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui-tooling-data",
+          "version": {
+            "requires": "1.10.6"
+          }
+        },
+        {
+          "group": "io.github.felikslv01.viewin",
+          "module": "viewin-sdk",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "viewin-compose-0.1.0.aar",
+          "url": "viewin-compose-0.1.0.aar",
+          "size": 31836,
+          "sha512": "c6145fb0936d6944d4e91159de47a9101c35fec8861005cc0a1c312811e7fc20fe453826dd8b290d1d81a096a32a5cb58aa30caa93cd91c147862dd5b4b7a6a2",
+          "sha256": "aed805235eb6a51243423b89d6daeda4ee86def51a0d90bfaf29d12fa282230f",
+          "sha1": "20b7e7d8d6e2200d79bfa2dc2ad2d17369ad9da3",
+          "md5": "20316acfb48edcc1e4be539a28e184fc"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "viewin-compose-0.1.0-sources.jar",
+          "url": "viewin-compose-0.1.0-sources.jar",
+          "size": 6816,
+          "sha512": "0bb0d8828a776582d6beb78f1307a40631ed02e33702ddc820dc9e1dd4c01412369e87791d78711481d8d63c70b3073f4fc4b81569b94480495d4361799d4d78",
+          "sha256": "794ce3127611aef418fb4eb84a5f55ea6800a5203794ed60c4b4736954ade01d",
+          "sha1": "20021547a49de6482b34e5901db73d12af78f639",
+          "md5": "a0376fda7e16a25c948270fb7483f2f8"
+        }
+      ]
+    }
+  ]
+}
