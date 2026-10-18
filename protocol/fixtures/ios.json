@@ -1,0 +1,1072 @@
+{
+  "protocolVersion": {
+    "major": 0,
+    "minor": 1
+  },
+  "snapshotId": "fixture-ios-profile",
+  "sessionId": "fixture-session-ios",
+  "capturedAt": "2026-10-18T03:00:00Z",
+  "source": "fixture",
+  "target": {
+    "platform": "ios",
+    "deviceId": "example-ios",
+    "deviceName": "iPhone · 示例设备",
+    "appId": "com.viewin.example",
+    "appName": "Viewin Sample",
+    "appVersion": "0.1",
+    "osVersion": "示例",
+    "buildType": "internalRelease",
+    "frameworks": [
+      {
+        "name": "uikit"
+      },
+      {
+        "name": "swiftui"
+      }
+    ]
+  },
+  "capabilities": [
+    {
+      "name": "hierarchy",
+      "status": "available"
+    },
+    {
+      "name": "geometry",
+      "status": "available"
+    },
+    {
+      "name": "screenshot",
+      "status": "unavailable",
+      "reason": "fixture_has_no_image"
+    },
+    {
+      "name": "liveConnection",
+      "status": "unavailable",
+      "reason": "offline_fixture"
+    }
+  ],
+  "capture": {
+    "startedAt": "2026-10-18T03:00:00Z",
+    "completedAt": "2026-10-18T03:00:00Z",
+    "completeness": "partial",
+    "consistency": "stable",
+    "warnings": [
+      {
+        "code": "fixture_data",
+        "message": "手工构造的协议示例；不代表真实设备采集或 Release 兼容性。"
+      }
+    ]
+  },
+  "windows": [
+    {
+      "id": "main",
+      "title": "Main Window",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "unit": "pt",
+      "pixelsPerUnit": 3,
+      "rootNodeIds": [
+        "window"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "window",
+      "windowId": "main",
+      "parentId": null,
+      "childIds": [
+        "root"
+      ],
+      "framework": "uikit",
+      "kind": "window",
+      "typeName": "UIWindow",
+      "name": "UIWindow",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "frameInWindow": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "cornersInWindow": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 390,
+            "y": 0
+          },
+          {
+            "x": 390,
+            "y": 844
+          },
+          {
+            "x": 0,
+            "y": 844
+          }
+        ],
+        "clipInWindow": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 390,
+            "y": 0
+          },
+          {
+            "x": 390,
+            "y": 844
+          },
+          {
+            "x": 0,
+            "y": 844
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": []
+    },
+    {
+      "id": "root",
+      "windowId": "main",
+      "parentId": "window",
+      "childIds": [
+        "screen",
+        "layer"
+      ],
+      "framework": "uikit",
+      "kind": "view",
+      "typeName": "UIHostingView",
+      "name": "UIHostingView",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "frameInWindow": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "cornersInWindow": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 390,
+            "y": 0
+          },
+          {
+            "x": 390,
+            "y": 844
+          },
+          {
+            "x": 0,
+            "y": 844
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": []
+    },
+    {
+      "id": "screen",
+      "windowId": "main",
+      "parentId": "root",
+      "childIds": [
+        "stack"
+      ],
+      "framework": "swiftui",
+      "kind": "component",
+      "typeName": "ProfileScreen",
+      "name": "ProfileScreen",
+      "identifiers": {},
+      "geometry": null,
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": []
+    },
+    {
+      "id": "stack",
+      "windowId": "main",
+      "parentId": "screen",
+      "childIds": [
+        "heading",
+        "subtitle",
+        "card",
+        "button",
+        "scroll"
+      ],
+      "framework": "swiftui",
+      "kind": "stack",
+      "typeName": "VStack",
+      "name": "VStack",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 660
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 76,
+          "width": 342,
+          "height": 660
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 76
+          },
+          {
+            "x": 366,
+            "y": 76
+          },
+          {
+            "x": 366,
+            "y": 736
+          },
+          {
+            "x": 24,
+            "y": 736
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "spacing",
+              "title": "spacing",
+              "value": 20,
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heading",
+      "windowId": "main",
+      "parentId": "stack",
+      "childIds": [],
+      "framework": "swiftui",
+      "kind": "text",
+      "typeName": "Text",
+      "name": "Text",
+      "identifiers": {
+        "accessibilityIdentifier": "profile.title"
+      },
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 42
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 76,
+          "width": 342,
+          "height": 42
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 76
+          },
+          {
+            "x": 366,
+            "y": 76
+          },
+          {
+            "x": 366,
+            "y": 118
+          },
+          {
+            "x": 24,
+            "y": 118
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "text",
+              "title": "text",
+              "value": "Hello, Viewin",
+              "availability": "available"
+            },
+            {
+              "id": "fontSize",
+              "title": "fontSize",
+              "value": 30,
+              "availability": "available"
+            },
+            {
+              "id": "fontWeight",
+              "title": "fontWeight",
+              "value": "semibold",
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subtitle",
+      "windowId": "main",
+      "parentId": "stack",
+      "childIds": [],
+      "framework": "swiftui",
+      "kind": "text",
+      "typeName": "Text",
+      "name": "Text",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 26
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 124,
+          "width": 342,
+          "height": 26
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 124
+          },
+          {
+            "x": 366,
+            "y": 124
+          },
+          {
+            "x": 366,
+            "y": 150
+          },
+          {
+            "x": 24,
+            "y": 150
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "text",
+              "title": "text",
+              "value": "Inspect the details.",
+              "availability": "available"
+            },
+            {
+              "id": "fontSize",
+              "title": "fontSize",
+              "value": 15,
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "windowId": "main",
+      "parentId": "stack",
+      "childIds": [
+        "avatar",
+        "name",
+        "email"
+      ],
+      "framework": "swiftui",
+      "kind": "view",
+      "typeName": "ProfileCard",
+      "name": "ProfileCard",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 144
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 182,
+          "width": 342,
+          "height": 144
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 182
+          },
+          {
+            "x": 366,
+            "y": 182
+          },
+          {
+            "x": 366,
+            "y": 326
+          },
+          {
+            "x": 24,
+            "y": 326
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "cornerRadius",
+              "title": "cornerRadius",
+              "value": 20,
+              "availability": "available"
+            },
+            {
+              "id": "backgroundColor",
+              "title": "backgroundColor",
+              "value": "#EAF3FF",
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "avatar",
+      "windowId": "main",
+      "parentId": "card",
+      "childIds": [],
+      "framework": "swiftui",
+      "kind": "image",
+      "typeName": "Image",
+      "name": "Image",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 54,
+          "height": 54
+        },
+        "frameInWindow": {
+          "x": 44,
+          "y": 202,
+          "width": 54,
+          "height": 54
+        },
+        "cornersInWindow": [
+          {
+            "x": 44,
+            "y": 202
+          },
+          {
+            "x": 98,
+            "y": 202
+          },
+          {
+            "x": 98,
+            "y": 256
+          },
+          {
+            "x": 44,
+            "y": 256
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "contentDescription",
+              "title": "contentDescription",
+              "value": "Avatar",
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "name",
+      "windowId": "main",
+      "parentId": "card",
+      "childIds": [],
+      "framework": "swiftui",
+      "kind": "text",
+      "typeName": "Text",
+      "name": "Text",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 220,
+          "height": 24
+        },
+        "frameInWindow": {
+          "x": 114,
+          "y": 207,
+          "width": 220,
+          "height": 24
+        },
+        "cornersInWindow": [
+          {
+            "x": 114,
+            "y": 207
+          },
+          {
+            "x": 334,
+            "y": 207
+          },
+          {
+            "x": 334,
+            "y": 231
+          },
+          {
+            "x": 114,
+            "y": 231
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "text",
+              "title": "text",
+              "value": "Alex Morgan",
+              "availability": "available"
+            },
+            {
+              "id": "fontSize",
+              "title": "fontSize",
+              "value": 18,
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "email",
+      "windowId": "main",
+      "parentId": "card",
+      "childIds": [],
+      "framework": "swiftui",
+      "kind": "text",
+      "typeName": "Text",
+      "name": "Text",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 220,
+          "height": 20
+        },
+        "frameInWindow": {
+          "x": 114,
+          "y": 239,
+          "width": 220,
+          "height": 20
+        },
+        "cornersInWindow": [
+          {
+            "x": 114,
+            "y": 239
+          },
+          {
+            "x": 334,
+            "y": 239
+          },
+          {
+            "x": 334,
+            "y": 259
+          },
+          {
+            "x": 114,
+            "y": 259
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "text",
+              "title": "text",
+              "value": "alex@example.com",
+              "availability": "available"
+            },
+            {
+              "id": "fontSize",
+              "title": "fontSize",
+              "value": 13,
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "button",
+      "windowId": "main",
+      "parentId": "stack",
+      "childIds": [],
+      "framework": "swiftui",
+      "kind": "button",
+      "typeName": "Button",
+      "name": "Button",
+      "identifiers": {
+        "accessibilityIdentifier": "profile.edit"
+      },
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 50
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 354,
+          "width": 342,
+          "height": 50
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 354
+          },
+          {
+            "x": 366,
+            "y": 354
+          },
+          {
+            "x": 366,
+            "y": 404
+          },
+          {
+            "x": 24,
+            "y": 404
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "text",
+              "title": "text",
+              "value": "Edit profile",
+              "availability": "available"
+            },
+            {
+              "id": "cornerRadius",
+              "title": "cornerRadius",
+              "value": 14,
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scroll",
+      "windowId": "main",
+      "parentId": "stack",
+      "childIds": [
+        "cell"
+      ],
+      "framework": "uikit",
+      "kind": "scroll",
+      "typeName": "UITableView",
+      "name": "UITableView",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 204
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 432,
+          "width": 342,
+          "height": 204
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 432
+          },
+          {
+            "x": 366,
+            "y": 432
+          },
+          {
+            "x": 366,
+            "y": 636
+          },
+          {
+            "x": 24,
+            "y": 636
+          }
+        ],
+        "clipInWindow": [
+          {
+            "x": 24,
+            "y": 432
+          },
+          {
+            "x": 366,
+            "y": 432
+          },
+          {
+            "x": 366,
+            "y": 636
+          },
+          {
+            "x": 24,
+            "y": 636
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "contentOffset",
+              "title": "contentOffset",
+              "value": {
+                "x": 0,
+                "y": 0
+              },
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cell",
+      "windowId": "main",
+      "parentId": "scroll",
+      "childIds": [
+        "details"
+      ],
+      "framework": "uikit",
+      "kind": "view",
+      "typeName": "ProfileCell",
+      "name": "ProfileCell",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 310,
+          "height": 144
+        },
+        "frameInWindow": {
+          "x": 40,
+          "y": 450,
+          "width": 310,
+          "height": 144
+        },
+        "cornersInWindow": [
+          {
+            "x": 40,
+            "y": 450
+          },
+          {
+            "x": 350,
+            "y": 450
+          },
+          {
+            "x": 350,
+            "y": 594
+          },
+          {
+            "x": 40,
+            "y": 594
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "list",
+          "title": "列表位置",
+          "properties": [
+            {
+              "id": "listPosition",
+              "title": "列表位置",
+              "value": {
+                "section": 0,
+                "item": 2
+              },
+              "availability": "available"
+            }
+          ]
+        },
+        {
+          "id": "interaction",
+          "title": "事件与手势",
+          "properties": [
+            {
+              "id": "eventHandlers",
+              "title": "事件与手势",
+              "value": [
+                {
+                  "kind": "gesture",
+                  "typeName": "UITapGestureRecognizer",
+                  "enabled": true,
+                  "event": "tap",
+                  "target": "ProfileController",
+                  "action": "showDetails:",
+                  "origin": "self"
+                }
+              ],
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "details",
+      "windowId": "main",
+      "parentId": "cell",
+      "childIds": [],
+      "framework": "uikit",
+      "kind": "text",
+      "typeName": "UILabel",
+      "name": "UILabel",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 310,
+          "height": 144
+        },
+        "frameInWindow": {
+          "x": 40,
+          "y": 450,
+          "width": 310,
+          "height": 144
+        },
+        "cornersInWindow": [
+          {
+            "x": 40,
+            "y": 450
+          },
+          {
+            "x": 350,
+            "y": 450
+          },
+          {
+            "x": 350,
+            "y": 594
+          },
+          {
+            "x": 40,
+            "y": 594
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": [
+        {
+          "id": "appearance",
+          "title": "内容与样式",
+          "properties": [
+            {
+              "id": "text",
+              "title": "text",
+              "value": "Native views and declarative UI,\nin one snapshot.",
+              "availability": "available"
+            },
+            {
+              "id": "fontSize",
+              "title": "fontSize",
+              "value": 16,
+              "availability": "available"
+            }
+          ]
+        },
+        {
+          "id": "references",
+          "title": "成员引用",
+          "properties": [
+            {
+              "id": "memberReferences",
+              "title": "成员引用",
+              "value": [
+                {
+                  "name": "_descriptionLabel",
+                  "ownerType": "ProfileCell",
+                  "kind": "ivar"
+                }
+              ],
+              "availability": "available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "layer",
+      "windowId": "main",
+      "parentId": "root",
+      "childIds": [],
+      "framework": "uikit",
+      "kind": "layer",
+      "typeName": "CALayer",
+      "name": "CALayer",
+      "identifiers": {},
+      "geometry": {
+        "localBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 342,
+          "height": 50
+        },
+        "frameInWindow": {
+          "x": 24,
+          "y": 354,
+          "width": 342,
+          "height": 50
+        },
+        "cornersInWindow": [
+          {
+            "x": 24,
+            "y": 354
+          },
+          {
+            "x": 366,
+            "y": 354
+          },
+          {
+            "x": 366,
+            "y": 404
+          },
+          {
+            "x": 24,
+            "y": 404
+          }
+        ]
+      },
+      "visibility": {
+        "hidden": false,
+        "alpha": 1
+      },
+      "properties": []
+    }
+  ],
+  "relations": [
+    {
+      "fromNodeId": "button",
+      "toNodeId": "layer",
+      "kind": "renderedBy"
+    }
+  ],
+  "images": []
+}

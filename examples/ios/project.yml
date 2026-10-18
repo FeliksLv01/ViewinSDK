@@ -1,0 +1,47 @@
+name: ViewinDemo
+options:
+  bundleIdPrefix: app.viewin
+packages:
+  ViewinSDK:
+    path: ../..
+targets:
+  ViewinDemo:
+    type: application
+    platform: iOS
+    deploymentTarget: '16.0'
+    sources: [Sources]
+    dependencies:
+      - package: ViewinSDK
+        product: ViewinSDK
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.viewin.demo
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        SWIFT_VERSION: '5.0'
+        OTHER_LDFLAGS: ['$(inherited)', '-ObjC']
+        CODE_SIGNING_ALLOWED: NO
+        TARGETED_DEVICE_FAMILY: '1,2'
+
+  ViewinSDKTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: '16.0'
+    sources: [Tests]
+    dependencies:
+      - target: ViewinDemo
+      - package: ViewinSDK
+        product: ViewinSDK
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.viewin.sdk-tests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
+schemes:
+  ViewinDemo:
+    build:
+      targets:
+        ViewinDemo: all
+    test:
+      targets: [ViewinSDKTests]

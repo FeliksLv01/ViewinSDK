@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+.DS_Store
+**/.gradle/
+**/build/
+**/xcuserdata/
+*.xcuserstate
+
+# Local implementation and research notes
+/docs/
