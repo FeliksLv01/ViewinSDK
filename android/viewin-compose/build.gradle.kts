@@ -1,4 +1,4 @@
-plugins { id("com.android.library") }
+plugins { id("com.android.library"); id("org.jetbrains.dokka") }
 android {
  namespace = "app.viewin.compose"; compileSdk = 36
  defaultConfig { minSdk = 29; consumerProguardFiles("consumer-rules.pro") }

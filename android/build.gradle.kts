@@ -1,3 +1,4 @@
+import org.jetbrains.dokka.gradle.tasks.DokkaGeneratePublicationTask
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.DeploymentValidation
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
@@ -18,10 +19,10 @@ plugins {
 val libraryModules = setOf("viewin-protocol", "viewin-sdk", "viewin-compose")
 subprojects {
     if (name in libraryModules) {
+        val libraryProject = this
         group = "io.github.felikslv01.viewin"
         version = providers.gradleProperty("viewinVersion").get()
         apply(plugin = "com.vanniktech.maven.publish.base")
-        apply(plugin = "org.jetbrains.dokka")
         val signingEnabled = providers.gradleProperty("signPublications").orElse("false").get().toBoolean()
         extensions.configure<MavenPublishBaseExtension> {
             coordinates(project.group.toString(), project.name, project.version.toString())
@@ -47,7 +48,7 @@ subprojects {
         val javadocJar = tasks.register<Jar>("javadocJar") {
             archiveClassifier.set("javadoc")
             dependsOn("dokkaGeneratePublicationHtml")
-            from(layout.buildDirectory.dir("dokka/html"))
+            from(libraryProject.tasks.named<DokkaGeneratePublicationTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
         }
         tasks.withType<Jar>().configureEach {
             from(rootProject.file("../LICENSE")) {
@@ -56,7 +57,6 @@ subprojects {
             }
         }
 
-        val libraryProject = this
         gradle.projectsEvaluated {
             libraryProject.extensions.configure<PublishingExtension> {
                 publications {

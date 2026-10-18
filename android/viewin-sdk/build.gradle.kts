@@ -1,4 +1,4 @@
-plugins { id("com.android.library") }
+plugins { id("com.android.library"); id("org.jetbrains.dokka") }
 android {
     namespace = "app.viewin.sdk"
     compileSdk = 36

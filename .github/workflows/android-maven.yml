@@ -45,7 +45,7 @@ jobs:
           :view-app:assembleDebug :view-app:assembleRelease
           :compose-app:assembleDebug :compose-app:assembleRelease
       - uses: actions/upload-artifact@v4
-        if: matrix.agp == '9.1.1'
+        if: always() && matrix.agp == '9.1.1'
         with:
           name: android-maven
           path: android/build/maven/

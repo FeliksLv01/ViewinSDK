@@ -2,6 +2,7 @@ plugins {
     `java-library`
     kotlin("jvm")
     kotlin("plugin.serialization")
+    id("org.jetbrains.dokka")
 }
 
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
