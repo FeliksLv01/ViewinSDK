@@ -15,6 +15,12 @@ subprojects {
         group = "io.github.felikslv01.viewin"
         version = providers.gradleProperty("viewinVersion").get()
         apply(plugin = "maven-publish")
+        tasks.withType<Jar>().configureEach {
+            from(rootProject.file("../LICENSE")) {
+                into("META-INF")
+                rename { "LICENSE-${project.name}" }
+            }
+        }
 
         val libraryProject = this
         gradle.projectsEvaluated {

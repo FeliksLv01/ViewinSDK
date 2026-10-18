@@ -7,6 +7,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import io
+import zipfile
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
@@ -51,6 +53,14 @@ def validate(staging, release):
                 expected = hashlib.new(algorithm, path.read_bytes()).hexdigest()
                 if path.with_name(path.name + "." + algorithm).read_text().strip() != expected:
                     raise ValueError(f"Checksum mismatch: {path}")
+        with zipfile.ZipFile(directory / (stem + "." + extension)) as archive:
+            if extension == "aar":
+                with zipfile.ZipFile(io.BytesIO(archive.read("classes.jar"))) as classes:
+                    notice = classes.read("META-INF/LICENSE-" + module)
+            else:
+                notice = archive.read("META-INF/LICENSE-" + module)
+            if notice != (ROOT / "LICENSE").read_bytes():
+                raise ValueError(f"Missing or incorrect license notice for {module}")
         pom = ET.parse(directory / (stem + ".pom")).getroot()
         for key, expected in (("groupId", GROUP), ("artifactId", module), ("version", release)):
             if pom.findtext("m:" + key, namespaces=NS) != expected:
@@ -111,6 +121,7 @@ def publish(staging, release):
             ET.indent(metadata)
             ET.ElementTree(metadata).write(metadata_path, encoding="utf-8", xml_declaration=True)
             checksums(metadata_path)
+        shutil.copy2(ROOT / "LICENSE", checkout / "LICENSE")
         (checkout / "README.md").write_text(
             "# Viewin Android Maven repository\n\n"
             "Generated artifacts only. [Source and integration guide](" + REPO + ").\n\n"
